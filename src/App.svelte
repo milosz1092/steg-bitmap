@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Form from "./lib/Form/Form.svelte";
+  import Form from "$lib/Form/Form.svelte";
 </script>
 
 <main>

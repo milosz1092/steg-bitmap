@@ -1,63 +1,69 @@
 <script>
-  import { FormIds as ids } from "../../App.static";
+  import { FormIds as ids } from "$src/App.static";
   import {
     onEmbedMessageButtonClick,
     onFetchMessageButtonClick,
     onFormInputChange,
     onOpenImageButtonClick,
   } from "./eventListeners";
-  import StateMachine from "../../store/StateMachine";
+  import StateMachine from "$store/StateMachine";
+  import { store$ } from "$subjects/stateSubjects";
   import { map } from "rxjs/operators";
+  import TextInput from "$lib/TextInput/TextInput.svelte";
 
-  const store$ = StateMachine.observer.pipe(map((machine) => machine.context));
+  const isUserActionAllowed$ = StateMachine.observer.pipe(
+    map((machine) =>
+      machine.matches("config_actions.user_actions.form_editing")
+    )
+  );
 </script>
 
 <div id="form">
   <fieldset>
     <legend>Select Bitmap</legend>
-    <label for={ids.INPUT_FILENAME}>File:</label>
-    <input
-      readonly
-      type="text"
+    <TextInput
+      label="File:"
       id={ids.INPUT_FILENAME}
-      name={ids.INPUT_FILENAME}
-      value={$store$.formFields[ids.INPUT_FILENAME]}
+      readonly
+      bind:value={$store$.formFields[ids.INPUT_FILENAME]}
     />
-    <button on:click={onOpenImageButtonClick} id={ids.BTN_OPEN}>Open</button>
+    <button
+      disabled={!$isUserActionAllowed$}
+      on:click={onOpenImageButtonClick}
+      id={ids.BTN_OPEN}>Open</button
+    >
   </fieldset>
 
   <fieldset class="vertical">
     <legend>Configuration</legend>
-    <label for={ids.INPUT_ENC_KEY}>Encryption key:</label>
-    <input
-      on:input={onFormInputChange}
+    <TextInput
+      label="Encryption key:"
       id={ids.INPUT_ENC_KEY}
-      name={ids.INPUT_ENC_KEY}
       type="password"
-      value={$store$.formFields[ids.INPUT_ENC_KEY]}
+      on:input={onFormInputChange}
+      bind:value={$store$.formFields[ids.INPUT_ENC_KEY]}
     />
 
-    <label for={ids.INPUT_DIST_KEY}>Distribution key:</label>
-    <input
-      on:input={onFormInputChange}
+    <TextInput
+      label="Distribution key:"
       id={ids.INPUT_DIST_KEY}
-      name={ids.INPUT_DIST_KEY}
       type="password"
-      value={$store$.formFields[ids.INPUT_DIST_KEY]}
+      on:input={onFormInputChange}
+      bind:value={$store$.formFields[ids.INPUT_DIST_KEY]}
     />
   </fieldset>
 
   <fieldset class="vertical">
     <legend>Embedding</legend>
-    <label for={ids.INPUT_MSG}>Input message:</label>
-    <textarea
-      on:input={onFormInputChange}
+    <TextInput
+      element="textarea"
+      label="Input message:"
       id={ids.INPUT_MSG}
-      name={ids.INPUT_MSG}
-      value={$store$.formFields[ids.INPUT_MSG]}
+      on:input={onFormInputChange}
+      bind:value={$store$.formFields[ids.INPUT_MSG]}
     />
     <button
-      disabled={!$store$.isEmbedConfigValid}
+      disabled={!$store$.isEmbedConfigValid || !$isUserActionAllowed$}
       on:click={onEmbedMessageButtonClick}
       id={ids.BTN_EMBED}>Embed & Save</button
     >
@@ -65,14 +71,16 @@
 
   <fieldset class="vertical">
     <legend>Fetching</legend>
-    <label for={ids.INPUT_FETCHED_MSG}>Output message:</label>
-    <textarea
+    <TextInput
       readonly
+      element="textarea"
+      label="Output message:"
       id={ids.INPUT_FETCHED_MSG}
-      value={$store$.formFields[ids.INPUT_FETCHED_MSG]}
+      on:input={onFormInputChange}
+      bind:value={$store$.formFields[ids.INPUT_FETCHED_MSG]}
     />
     <button
-      disabled={!$store$.isFetchConfigValid}
+      disabled={!$store$.isFetchConfigValid || !$isUserActionAllowed$}
       on:click={onFetchMessageButtonClick}
       id={ids.BTN_FETCH}>Fetch</button
     >

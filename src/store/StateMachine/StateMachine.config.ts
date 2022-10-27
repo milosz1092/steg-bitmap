@@ -4,7 +4,7 @@ import { initialContext } from './StateMachine.context';
 import { validateEmbedConfig, validateFetchConfig } from './StateMachine.utils';
 import { isEmbedInfoReady, isFetchingInfoReady } from './StateMachine.guards';
 import { embedMessage, readImage, saveImageToFile, fetchMessageFromImage } from './StateMachine.services';
-import { FormIds as ids } from '../../App.static';
+import { FormIds as ids } from '$src/App.static';
 
 export default createMachine(
   {
@@ -29,7 +29,7 @@ export default createMachine(
               form_editing: {
                 on: {
                   FILE_SELECTED: {
-                    actions: 'clearRelevantFormFieldOnImageOpen',
+                    actions: 'clearRelevantFormFieldsOnImageOpen',
                     target: '#StateMachine.config_actions.image_opening.reading_image',
                   },
                   FORM_FIELD_CHANGED: {
@@ -38,6 +38,7 @@ export default createMachine(
                   FETCH_BUTTON_CLICKED: {
                     target: '#StateMachine.fetching_message',
                     cond: 'isFetchingInfoReady',
+                    actions: 'clearRelevantFormFieldsOnFetchingStarted',
                   },
                   EMBED_BUTTON_CLICKED: {
                     target: '#StateMachine.embedding_message',
@@ -56,7 +57,10 @@ export default createMachine(
                   id: 'read_file',
                   src: 'readImage',
                   onDone: {
-                    actions: 'insertImageFilenameIntoForm',
+                    actions: [
+                      'insertImageFilenameIntoForm',
+                      'validateFormFields'
+                    ],
                     target: ['idle', '#StateMachine.config_actions.user_actions'],
                   },
                   onError: {
@@ -145,7 +149,13 @@ export default createMachine(
         isEmbedConfigValid: (context) => validateEmbedConfig(context),
         isFetchConfigValid: (context) => validateFetchConfig(context),
       }),
-      clearRelevantFormFieldOnImageOpen: assign({
+      clearRelevantFormFieldsOnFetchingStarted: assign({
+        formFields: (context) => ({
+          ...context.formFields,
+          [ids.INPUT_FETCHED_MSG]: '',
+        }),
+      }),
+      clearRelevantFormFieldsOnImageOpen: assign({
         formFields: (context) => ({
           ...context.formFields,
           [ids.INPUT_FILENAME]: '',
@@ -155,6 +165,8 @@ export default createMachine(
       clearRelevantFormFieldsOnEmbeddingSuccess: assign({
         formFields: (context) => ({
           ...context.formFields,
+          [ids.INPUT_ENC_KEY]: '',
+          [ids.INPUT_DIST_KEY]: '',
           [ids.INPUT_FETCHED_MSG]: '',
           [ids.INPUT_MSG]: '',
           [ids.INPUT_FILENAME]: '',

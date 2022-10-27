@@ -1,5 +1,5 @@
 import { dialog } from '@tauri-apps/api';
-import StateMachine from '../../store/StateMachine';
+import StateMachine from '$store/StateMachine';
 
 export const onOpenImageButtonClick = async () => {
   const filepath = await dialog.open({

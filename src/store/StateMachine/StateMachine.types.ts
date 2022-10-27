@@ -1,4 +1,4 @@
-import { FormIds as ids } from '../../App.static';
+import { FormIds as ids } from '$src/App.static';
 
 export interface Context {
   formFields: {
@@ -23,10 +23,6 @@ export type Services = {
 
 export type SavingFileSuccessEvent = {
   type: 'SAVING_FILE_SUCCESS';
-};
-
-export type FetchingResultEvent = {
-  type: 'onFetchingResult';
 };
 
 export type SavingFileFailureEvent = {
@@ -59,7 +55,6 @@ export type FormFieldChangedEvent = {
 
 export type Events =
   | SavingFileSuccessEvent
-  | FetchingResultEvent
   | SavingFileFailureEvent
   | FetchButtonClickEvent
   | EmbedButtonClickEvent

@@ -54,8 +54,9 @@ export interface Typegen0 {
     delays: never;
   };
   eventsCausingActions: {
-    clearRelevantFormFieldOnImageOpen: "FILE_SELECTED";
     clearRelevantFormFieldsOnEmbeddingSuccess: "done.invoke.save_file";
+    clearRelevantFormFieldsOnFetchingStarted: "FETCH_BUTTON_CLICKED";
+    clearRelevantFormFieldsOnImageOpen: "FILE_SELECTED";
     insertDecryptedMessageIntoForm: "done.invoke.fetch_message";
     insertImageFilenameIntoForm: "done.invoke.read_file";
     showEmbeddingFailureAlert: "error.platform.embed_message";
@@ -63,7 +64,7 @@ export interface Typegen0 {
     showFetchingCompletedInfo: "done.invoke.fetch_message";
     showSavingFileFailureAlert: "error.platform.save_file";
     updateFormFieldsContext: "FORM_FIELD_CHANGED";
-    validateFormFields: "FORM_FIELD_CHANGED";
+    validateFormFields: "FORM_FIELD_CHANGED" | "done.invoke.read_file";
   };
   eventsCausingServices: {
     embedMessage: "EMBED_BUTTON_CLICKED";

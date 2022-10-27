@@ -10,6 +10,20 @@
     "module": "ESNext",
     "resolveJsonModule": true,
     "baseUrl": ".",
+    "paths": {
+      "$src/*": [
+        "src/*"
+      ],
+      "$lib/*": [
+        "src/lib/*"
+      ],
+      "$store/*": [
+        "src/store/*"
+      ],
+      "$subjects/*": [
+        "src/subjects/*"
+      ],
+    },
     /**
      * Typecheck JS in `.svelte` and `.js` files by default.
      * Disable checkJs if you'd like to use dynamic types in JS.
