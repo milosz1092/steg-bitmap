@@ -84,7 +84,7 @@ $$x_2 = a_2 ⊕ a_3$$
  
 ### How to run
 #### Prequisites
-`Node.js` and `Yarn` installed.
+`Rust`, `Node.js` and `Yarn` installed.
 
 #### Installation
 `yarn`
