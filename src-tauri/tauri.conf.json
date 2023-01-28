@@ -29,7 +29,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "milosz1092.steg-bitmap",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
