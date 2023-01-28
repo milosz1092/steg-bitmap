@@ -3,8 +3,7 @@ import './app.css';
 import App from './App.svelte';
 import StateMachine from './store/StateMachine';
 
-
-inspect({
+process.env.NODE_ENV === 'development' && inspect({
   url: "https://statecharts.io/inspect",
   iframe: false
 });
