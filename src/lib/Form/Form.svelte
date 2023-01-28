@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { FormIds as ids } from "$src/App.static";
   import {
     onEmbedMessageButtonClick,
