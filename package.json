@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.0.2",
-    "@tauri-apps/cli": "^1.1.1",
+    "@tauri-apps/cli": "^1.2.3",
     "@tsconfig/svelte": "^3.0.0",
     "svelte": "^3.49.0",
     "svelte-check": "^2.8.1",
@@ -22,7 +22,7 @@
     "vite": "^3.1.0"
   },
   "dependencies": {
-    "@tauri-apps/api": "^1.1.0",
+    "@tauri-apps/api": "^1.2.0",
     "@xstate/inspect": "^0.7.0",
     "rxjs": "^7.5.7",
     "xstate": "^4.33.6"
