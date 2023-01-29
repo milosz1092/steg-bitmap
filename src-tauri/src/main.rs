@@ -62,6 +62,16 @@ async fn fetch_message(
     Result::Ok(fetching_result)
 }
 
+#[tauri::command]
+async fn get_embed_free_space_percent(
+    state: tauri::State<'_, MutAppState>,
+    message: String,
+) -> Result<f32, f32> {
+    let mut mutable_state = state.0.lock().unwrap();
+    let empty_space_result = mutable_state.processor.get_empty_space_percent(&message);
+    Result::Ok(empty_space_result)
+}
+
 fn main() {
     tauri::Builder::default()
         .manage(MutAppState(Mutex::new(AppState {
@@ -72,7 +82,8 @@ fn main() {
             read_file,
             embed_message,
             fetch_message,
-            save_file
+            save_file,
+            get_embed_free_space_percent
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

@@ -1,5 +1,5 @@
 import { invoke, dialog } from '@tauri-apps/api';
-import type { Context, FileSelectedEvent, EmbedButtonClickEvent, FetchButtonClickEvent } from './StateMachine.types';
+import type { Context, FileSelectedEvent, EmbedButtonClickEvent, FetchButtonClickEvent, FormFieldChangedEvent } from './StateMachine.types';
 
 export const readImage = async (_: Context, event: FileSelectedEvent) => {
   const read_result = await invoke<boolean>('read_file', { filepath: event.path });
@@ -59,4 +59,17 @@ export const fetchMessageFromImage = async (context: Context, event: FetchButton
   );
 
   return { message: fetch_result }
+}
+
+export const getAvailableEmbedFreeSpacePercent = async (context: Context, event: FormFieldChangedEvent) => {
+  const message = context.formFields[event.name];
+
+  const result = await invoke<number>(
+    'get_embed_free_space_percent',
+    {
+      message: message,
+    }
+  );
+
+  return { freeSpacePercent: result };
 }

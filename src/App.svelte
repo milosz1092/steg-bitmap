@@ -4,6 +4,7 @@
 
 <main>
   <Form />
+  <textarea />
 </main>
 
 <style>

@@ -2,8 +2,9 @@ import { inspect } from "@xstate/inspect";
 import './app.css';
 import App from './App.svelte';
 import StateMachine from './store/StateMachine';
+import { IS_DEVELOPMENT } from '$src/static';
 
-process.env.NODE_ENV === 'development' && inspect({
+IS_DEVELOPMENT && inspect({
   url: "https://statecharts.io/inspect",
   iframe: false
 });

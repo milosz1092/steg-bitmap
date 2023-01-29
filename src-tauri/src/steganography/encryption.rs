@@ -25,7 +25,7 @@ fn blocks_to_flat_vector(blocks: Vec<GenericArray<u8, typenum::U16>>) -> Vec<u8>
         .collect()
 }
 
-fn get_text_bytes_with_padding(text: &String) -> Vec<u8> {
+pub fn get_text_bytes_with_padding(text: &String) -> Vec<u8> {
     let block_padding = text.bytes().len() % 16;
 
     let mut plain_text_with_padding = String::from(text);
