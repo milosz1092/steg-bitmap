@@ -63,13 +63,13 @@ async fn fetch_message(
 }
 
 #[tauri::command]
-async fn get_embed_free_space_percent(
+async fn get_image_capacity(
     state: tauri::State<'_, MutAppState>,
     message: String,
 ) -> Result<f32, f32> {
     let mut mutable_state = state.0.lock().unwrap();
-    let empty_space_result = mutable_state.processor.get_empty_space_percent(&message);
-    Result::Ok(empty_space_result)
+    let image_capacity_percent = mutable_state.processor.get_image_capacity_percent(&message);
+    Result::Ok(image_capacity_percent)
 }
 
 fn main() {
@@ -83,7 +83,7 @@ fn main() {
             embed_message,
             fetch_message,
             save_file,
-            get_embed_free_space_percent
+            get_image_capacity
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

@@ -3,7 +3,7 @@ import type { Context, Events, Services } from './StateMachine.types';
 import { initialContext } from './StateMachine.context';
 import { validateEmbedConfig, validateFetchConfig } from './StateMachine.utils';
 import { isEmbedInfoReady, isFetchingInfoReady } from './StateMachine.guards';
-import { embedMessage, readImage, saveImageToFile, fetchMessageFromImage, getAvailableEmbedFreeSpacePercent } from './StateMachine.services';
+import { embedMessage, readImage, saveImageToFile, fetchMessageFromImage, getImageCapacityPercent } from './StateMachine.services';
 import { FormIds as ids } from '$src/App.static';
 
 export default createMachine(
@@ -58,10 +58,10 @@ export default createMachine(
               fetching_free_space: {
                 invoke: {
                   id: 'fetch_free_space',
-                  src: 'getAvailableEmbedFreeSpacePercent',
+                  src: 'getImageCapacityPercent',
                   onDone: {
                     actions: [
-                      'updateFreeEmbeddingSpace',
+                      'updateImageCapacity',
                     ],
                     target: ['idle', '#StateMachine.config_actions.user_actions'],
                   },
@@ -157,7 +157,7 @@ export default createMachine(
       embedMessage,
       saveImageToFile,
       fetchMessageFromImage,
-      getAvailableEmbedFreeSpacePercent,
+      getImageCapacityPercent,
     },
     guards: {
       isEmbedInfoReady,
@@ -170,8 +170,8 @@ export default createMachine(
           [event.name]: event.value,
         }),
       }),
-      updateFreeEmbeddingSpace: assign({
-        availableEmbedFreeSpacePercent: (_, event) => event.data.freeSpacePercent,
+      updateImageCapacity: assign({
+        imageCapacityPercent: (_, event) => event.data.freeSpacePercent,
       }),
       validateFormFields: assign({
         isEmbedConfigValid: (context) => validateEmbedConfig(context),

@@ -1,6 +1,7 @@
 import { throttle } from 'lodash';
 import { dialog } from '@tauri-apps/api';
 import StateMachine from '$store/StateMachine';
+import { FormIds } from '$src/App.static';
 
 const checkImageCapacity = throttle(async (message: string) => {
   StateMachine.service.send({ type: 'CHECK_IMAGE_CAPACITY', message });
@@ -28,5 +29,7 @@ export const onFetchMessageButtonClick = async () => {
 export const onFormInputChange = (event: Event) => {
   const { name, value } = event.target as HTMLInputElement;
   StateMachine.service.send({ type: 'FORM_FIELD_CHANGED', name, value });
-  checkImageCapacity(value);
+  console.log('name', name)
+
+  name === FormIds.INPUT_MSG && checkImageCapacity(value);
 }

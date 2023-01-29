@@ -10,7 +10,7 @@ export interface Context {
   };
   isEmbedConfigValid: boolean;
   isFetchConfigValid: boolean;
-  availableEmbedFreeSpacePercent: number | null;
+  imageCapacityPercent: number | null;
 }
 
 export type Services = {
@@ -20,7 +20,7 @@ export type Services = {
   fetchMessageFromImage: {
     data: { message: string };
   },
-  getAvailableEmbedFreeSpacePercent: {
+  getImageCapacityPercent: {
     data: { freeSpacePercent: number };
   }
 }

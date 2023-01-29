@@ -61,9 +61,9 @@ export const fetchMessageFromImage = async (context: Context, _: FetchButtonClic
   return { message: fetch_result }
 }
 
-export const getAvailableEmbedFreeSpacePercent = async (_: Context, event: CheckImageCapacityEvent) => {
+export const getImageCapacityPercent = async (_: Context, event: CheckImageCapacityEvent) => {
   const result = await invoke<number>(
-    'get_embed_free_space_percent',
+    'get_image_capacity',
     {
       message: event.message,
     }

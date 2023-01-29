@@ -63,7 +63,7 @@ impl ImageProcessor {
         }
     }
 
-    pub fn get_empty_space_percent(&mut self, message: &String) -> f32 {
+    pub fn get_image_capacity_percent(&mut self, message: &String) -> f32 {
         match &self.image {
             Some(_) => {
                 let needed_bits_len =

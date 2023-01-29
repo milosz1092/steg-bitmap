@@ -19,7 +19,7 @@ export interface Typegen0 {
   invokeSrcNameMap: {
     "embedMessage": "done.invoke.embed_message";
     "fetchMessageFromImage": "done.invoke.fetch_message";
-    "getAvailableEmbedFreeSpacePercent": "done.invoke.fetch_free_space";
+    "getImageCapacityPercent": "done.invoke.fetch_free_space";
     "readImage": "done.invoke.read_file";
     "saveImageToFile": "done.invoke.save_file";
   };
@@ -40,7 +40,7 @@ export interface Typegen0 {
     "showFetchingCompletedInfo": "done.invoke.fetch_message";
     "showSavingFileFailureAlert": "error.platform.save_file";
     "updateFormFieldsContext": "FORM_FIELD_CHANGED";
-    "updateFreeEmbeddingSpace": "done.invoke.fetch_free_space";
+    "updateImageCapacity": "done.invoke.fetch_free_space";
     "validateFormFields": "FORM_FIELD_CHANGED" | "done.invoke.read_file";
   };
   eventsCausingDelays: {
@@ -53,7 +53,7 @@ export interface Typegen0 {
   eventsCausingServices: {
     "embedMessage": "EMBED_BUTTON_CLICKED";
     "fetchMessageFromImage": "FETCH_BUTTON_CLICKED";
-    "getAvailableEmbedFreeSpacePercent": "CHECK_IMAGE_CAPACITY";
+    "getImageCapacityPercent": "CHECK_IMAGE_CAPACITY";
     "readImage": "FILE_SELECTED";
     "saveImageToFile": "done.invoke.embed_message";
   };

@@ -56,7 +56,7 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 780,
+        "height": 805,
         "resizable": false,
         "title": "Bitmap Steganography",
         "width": 400
