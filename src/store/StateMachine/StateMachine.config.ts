@@ -34,6 +34,8 @@ export default createMachine(
                   },
                   FORM_FIELD_CHANGED: {
                     actions: ['updateFormFieldsContext', 'validateFormFields'],
+                  },
+                  CHECK_IMAGE_CAPACITY: {
                     target: '#StateMachine.config_actions.checking_embedding_space.fetching_free_space',
                   },
                   FETCH_BUTTON_CLICKED: {

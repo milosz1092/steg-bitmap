@@ -53,7 +53,7 @@ export interface Typegen0 {
   eventsCausingServices: {
     "embedMessage": "EMBED_BUTTON_CLICKED";
     "fetchMessageFromImage": "FETCH_BUTTON_CLICKED";
-    "getAvailableEmbedFreeSpacePercent": "FORM_FIELD_CHANGED";
+    "getAvailableEmbedFreeSpacePercent": "CHECK_IMAGE_CAPACITY";
     "readImage": "FILE_SELECTED";
     "saveImageToFile": "done.invoke.embed_message";
   };
