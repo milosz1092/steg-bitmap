@@ -10,6 +10,7 @@ export interface Context {
   };
   isEmbedConfigValid: boolean;
   isFetchConfigValid: boolean;
+  imageCapacityPercent: number | null;
 }
 
 export type Services = {
@@ -18,6 +19,9 @@ export type Services = {
   },
   fetchMessageFromImage: {
     data: { message: string };
+  },
+  getImageCapacityPercent: {
+    data: { freeSpacePercent: number };
   }
 }
 
@@ -53,6 +57,12 @@ export type FormFieldChangedEvent = {
   value: string;
 };
 
+export type CheckImageCapacityEvent = {
+  type: 'CHECK_IMAGE_CAPACITY';
+  message: string;
+};
+
+
 export type Events =
   | SavingFileSuccessEvent
   | SavingFileFailureEvent
@@ -60,4 +70,5 @@ export type Events =
   | EmbedButtonClickEvent
   | FileSelectedEvent
   | FormFieldChangedEvent
-  | StartImageReadiingEvent;
+  | StartImageReadiingEvent
+  | CheckImageCapacityEvent;

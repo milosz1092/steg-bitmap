@@ -5,10 +5,12 @@ export interface Typegen0 {
   '@@xstate/typegen': true;
   internalEvents: {
     "done.invoke.embed_message": { type: "done.invoke.embed_message"; data: unknown; __tip: "See the XState TS docs to learn how to strongly type this." };
+    "done.invoke.fetch_free_space": { type: "done.invoke.fetch_free_space"; data: unknown; __tip: "See the XState TS docs to learn how to strongly type this." };
     "done.invoke.fetch_message": { type: "done.invoke.fetch_message"; data: unknown; __tip: "See the XState TS docs to learn how to strongly type this." };
     "done.invoke.read_file": { type: "done.invoke.read_file"; data: unknown; __tip: "See the XState TS docs to learn how to strongly type this." };
     "done.invoke.save_file": { type: "done.invoke.save_file"; data: unknown; __tip: "See the XState TS docs to learn how to strongly type this." };
     "error.platform.embed_message": { type: "error.platform.embed_message"; data: unknown };
+    "error.platform.fetch_free_space": { type: "error.platform.fetch_free_space"; data: unknown };
     "error.platform.fetch_message": { type: "error.platform.fetch_message"; data: unknown };
     "error.platform.read_file": { type: "error.platform.read_file"; data: unknown };
     "error.platform.save_file": { type: "error.platform.save_file"; data: unknown };
@@ -17,6 +19,7 @@ export interface Typegen0 {
   invokeSrcNameMap: {
     "embedMessage": "done.invoke.embed_message";
     "fetchMessageFromImage": "done.invoke.fetch_message";
+    "getImageCapacityPercent": "done.invoke.fetch_free_space";
     "readImage": "done.invoke.read_file";
     "saveImageToFile": "done.invoke.save_file";
   };
@@ -37,6 +40,7 @@ export interface Typegen0 {
     "showFetchingCompletedInfo": "done.invoke.fetch_message";
     "showSavingFileFailureAlert": "error.platform.save_file";
     "updateFormFieldsContext": "FORM_FIELD_CHANGED";
+    "updateImageCapacity": "done.invoke.fetch_free_space";
     "validateFormFields": "FORM_FIELD_CHANGED" | "done.invoke.read_file";
   };
   eventsCausingDelays: {
@@ -49,11 +53,13 @@ export interface Typegen0 {
   eventsCausingServices: {
     "embedMessage": "EMBED_BUTTON_CLICKED";
     "fetchMessageFromImage": "FETCH_BUTTON_CLICKED";
+    "getImageCapacityPercent": "CHECK_IMAGE_CAPACITY";
     "readImage": "FILE_SELECTED";
     "saveImageToFile": "done.invoke.embed_message";
   };
-  matchesStates: "config_actions" | "config_actions.image_opening" | "config_actions.image_opening.idle" | "config_actions.image_opening.reading_image" | "config_actions.user_actions" | "config_actions.user_actions.form_editing" | "embedding_message" | "embedding_message.embedding_in_progress" | "embedding_message.saving_file_in_progress" | "fetching_message" | "fetching_message.fetching_in_progress" | {
-    "config_actions"?: "image_opening" | "user_actions" | {
+  matchesStates: "config_actions" | "config_actions.checking_embedding_space" | "config_actions.checking_embedding_space.fetching_free_space" | "config_actions.checking_embedding_space.idle" | "config_actions.image_opening" | "config_actions.image_opening.idle" | "config_actions.image_opening.reading_image" | "config_actions.user_actions" | "config_actions.user_actions.form_editing" | "embedding_message" | "embedding_message.embedding_in_progress" | "embedding_message.saving_file_in_progress" | "fetching_message" | "fetching_message.fetching_in_progress" | {
+    "config_actions"?: "checking_embedding_space" | "image_opening" | "user_actions" | {
+      "checking_embedding_space"?: "fetching_free_space" | "idle";
       "image_opening"?: "idle" | "reading_image";
       "user_actions"?: "form_editing";
     };

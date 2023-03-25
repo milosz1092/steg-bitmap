@@ -10,4 +10,5 @@ export const initialContext: Context = {
   },
   isFetchConfigValid: false,
   isEmbedConfigValid: false,
+  imageCapacityPercent: null,
 };
