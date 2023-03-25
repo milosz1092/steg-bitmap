@@ -1,4 +1,4 @@
-use crate::steganography::encryption::{decrypt, encrypt};
+use crate::steganography::encryption::{decrypt, encrypt, get_text_bytes_with_padding};
 use crate::steganography::permutation::Permutation;
 use crate::utils::bits_sequence_checker::BitsSequenceChecker;
 use bitvec::prelude::*;
@@ -60,6 +60,21 @@ impl ImageProcessor {
             None => {
                 return false;
             }
+        }
+    }
+
+    pub fn get_image_capacity_percent(&mut self, message: &String) -> f32 {
+        match &self.image {
+            Some(_) => {
+                let needed_bits_len =
+                    (get_text_bytes_with_padding(message).len() * 8 + ENDING_SEQUENCE.len()) as f32;
+
+                let image_capacity = (self.pixels_count * 2) as f32;
+                let bits_left = image_capacity - needed_bits_len;
+
+                bits_left / image_capacity
+            }
+            _ => 1.0,
         }
     }
 

@@ -3,7 +3,7 @@ import type { Context, Events, Services } from './StateMachine.types';
 import { initialContext } from './StateMachine.context';
 import { validateEmbedConfig, validateFetchConfig } from './StateMachine.utils';
 import { isEmbedInfoReady, isFetchingInfoReady } from './StateMachine.guards';
-import { embedMessage, readImage, saveImageToFile, fetchMessageFromImage } from './StateMachine.services';
+import { embedMessage, readImage, saveImageToFile, fetchMessageFromImage, getImageCapacityPercent } from './StateMachine.services';
 import { FormIds as ids } from '$src/App.static';
 
 export default createMachine(
@@ -35,6 +35,9 @@ export default createMachine(
                   FORM_FIELD_CHANGED: {
                     actions: ['updateFormFieldsContext', 'validateFormFields'],
                   },
+                  CHECK_IMAGE_CAPACITY: {
+                    target: '#StateMachine.config_actions.checking_embedding_space.fetching_free_space',
+                  },
                   FETCH_BUTTON_CLICKED: {
                     target: '#StateMachine.fetching_message',
                     cond: 'isFetchingInfoReady',
@@ -46,6 +49,27 @@ export default createMachine(
                   },
                 },
               },
+            },
+          },
+          checking_embedding_space: {
+            initial: 'idle',
+            states: {
+              idle: {},
+              fetching_free_space: {
+                invoke: {
+                  id: 'fetch_free_space',
+                  src: 'getImageCapacityPercent',
+                  onDone: {
+                    actions: [
+                      'updateImageCapacity',
+                    ],
+                    target: ['idle', '#StateMachine.config_actions.user_actions'],
+                  },
+                  onError: {
+                    target: 'idle',
+                  }
+                }
+              }
             },
           },
           image_opening: {
@@ -133,6 +157,7 @@ export default createMachine(
       embedMessage,
       saveImageToFile,
       fetchMessageFromImage,
+      getImageCapacityPercent,
     },
     guards: {
       isEmbedInfoReady,
@@ -144,6 +169,9 @@ export default createMachine(
           ...context.formFields,
           [event.name]: event.value,
         }),
+      }),
+      updateImageCapacity: assign({
+        imageCapacityPercent: (_, event) => event.data.freeSpacePercent,
       }),
       validateFormFields: assign({
         isEmbedConfigValid: (context) => validateEmbedConfig(context),

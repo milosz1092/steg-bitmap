@@ -10,6 +10,7 @@
   import { store$ } from "$subjects/stateSubjects";
   import { map } from "rxjs/operators";
   import TextInput from "$lib/TextInput/TextInput.svelte";
+  import CapacityIndicator from "$lib/CapacityIndicator/CapacityIndicator.svelte";
 
   const isUserActionAllowed$ = StateMachine.observer.pipe(
     map((machine) =>
@@ -62,6 +63,9 @@
       on:input={onFormInputChange}
       bind:value={$store$.formFields[ids.INPUT_MSG]}
     />
+
+    <CapacityIndicator />
+
     <button
       disabled={!$store$.isEmbedConfigValid || !$isUserActionAllowed$}
       on:click={onEmbedMessageButtonClick}
